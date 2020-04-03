@@ -1,0 +1,22 @@
+{{define "title"}}
+  Golang REST API | {{index . "title"}}
+{{end}}
+
+{{define "bodyheader"}}
+  {{index . "bodyheader"}}
+{{end}}
+
+{{define "body"}}
+
+<label for="databases">Choose a database:</label>
+<select id="databases">
+{{range $database := index . "database"}}
+	<option value="{{$database}}">{{$database}}</option>
+{{end}}
+</select>
+
+<div class="text-center my-auto">
+  <textarea rows="10" placeholder=" Enter JSON here" class="form-control"></textarea>
+</div>
+
+{{end}}

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="97c3be0e-3f8f-4892-990b-53dbda7a5d52" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="/usr/local/go" />
+  <component name="ProjectId" id="1ZM7msVkmG6vtuN8VE5LpS8CP0r" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager" selected="Go Build.go build server.go">
+    <configuration name="go build handler.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="testRest" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/handler/handler.go" />
+      <package value="testRest" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build server.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="testRest" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/server.go" />
+      <package value="testRest" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build server.go" />
+        <item itemvalue="Go Build.go build handler.go" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1626" y="155" key="#go_build_handler.go" timestamp="1584650815103">
+      <screen x="0" y="23" width="2560" height="977" />
+    </state>
+    <state x="1626" y="155" key="#go_build_handler.go/0.23.2560.977@0.23.2560.977" timestamp="1584650815103" />
+    <state width="1260" height="263" key="GridCell.Tab.0.bottom" timestamp="1584651018667">
+      <screen x="0" y="23" width="2560" height="977" />
+    </state>
+    <state width="1260" height="263" key="GridCell.Tab.0.bottom/0.23.2560.977@0.23.2560.977" timestamp="1584651018667" />
+    <state width="1260" height="263" key="GridCell.Tab.0.center" timestamp="1584651018666">
+      <screen x="0" y="23" width="2560" height="977" />
+    </state>
+    <state width="1260" height="263" key="GridCell.Tab.0.center/0.23.2560.977@0.23.2560.977" timestamp="1584651018666" />
+    <state width="1260" height="263" key="GridCell.Tab.0.left" timestamp="1584651018665">
+      <screen x="0" y="23" width="2560" height="977" />
+    </state>
+    <state width="1260" height="263" key="GridCell.Tab.0.left/0.23.2560.977@0.23.2560.977" timestamp="1584651018665" />
+    <state width="1260" height="263" key="GridCell.Tab.0.right" timestamp="1584651018666">
+      <screen x="0" y="23" width="2560" height="977" />
+    </state>
+    <state width="1260" height="263" key="GridCell.Tab.0.right/0.23.2560.977@0.23.2560.977" timestamp="1584651018666" />
+  </component>
+</project>
