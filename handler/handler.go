@@ -64,6 +64,11 @@ func CSVLoad_GET(db *gorm.DB) echo.HandlerFunc {
 func CSVLoad_POST(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
+		var tables []string
+		if err := db.Table("information_schema.tables").Where("table_schema = ?", "public").Pluck("table_name", &tables).Error; err != nil {
+			panic(err)
+		}
+
 		csv := strings.Split(c.FormValue("csv"), ",")
 		if len(csv) != 5 {
 			panic("Error")
