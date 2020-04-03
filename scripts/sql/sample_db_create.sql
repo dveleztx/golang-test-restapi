@@ -8,18 +8,18 @@
 -- SET PASSWORD (THIS IS ONLY FOR DEMONSTRATION PURPOSES)
 ALTER USER postgres WITH PASSWORD 'postgres';
 
+-- GRANT PRIVILEGES
+GRANT ALL PRIVILEGES ON DATABASE sample_db TO postgres;
+
 -- CREATE TABLE
 CREATE TABLE users (
-	id		int primary key,
-	name		varchar(30) not null,
+	id		serial primary key,
+	name		varchar(50) not null,
 	age		int,
-	created_at	char(10),
-	updated_at	char(10)
+	created_at	timestamp with time zone default current_timestamp,
+	updated_at	timestamp with time zone default current_timestamp
 );
 
 -- INSERT DATA
-COPY users (id, name, age, created_at, updated_at)
+COPY users (name, age)
 FROM '/tmp/users_db.csv' DELIMITER ',' CSV HEADER;
-
--- GRANT PRIVILEGES
-GRANT ALL PRIVILEGES ON DATABASE sample_db TO postgres;
