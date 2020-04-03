@@ -1,20 +1,32 @@
 package handler
 
 import (
+	"error"
 	"fmt"
 	"testrest/model"
 )
 
-func UserHandler(fields ...interface{}) model.User {
+//func TableHandler(fields ...interface{}) model.User {
+func TableHandler(table, data) model.User {
 
-	fmt.Println(fields)
+	// Debugging
+	fmt.Println(table)
 
-	var User = model.User {
-		ID: 6,
-		Name: "Cody",
-		Age: "43",
-		CreatedAt: "2018-09-18",
-		UpdatedAt: "2011-07-17",
+	/* Handler Logic */
+	if table == "users" {
+
+		fields := strings.Split(c.FormValue(data), ",")
+		fmt.Println(fields)
+
+                if len(csv) != 2 {
+                        panic(err)
+                }
+
+                user := model.User{
+                        Name: csv[0],
+                        Age: csv[1],
+                }
+
 	}
 
 	return User

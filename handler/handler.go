@@ -69,6 +69,12 @@ func CSVLoad_POST(db *gorm.DB) echo.HandlerFunc {
 			panic(err)
 		}
 
+		handler.TableHandler(tables, c.FormValue("csv"))
+
+		// TODO: Create transaction using dbHandler.go
+		// TODO: Create Table Struct with table name, fields, and number of insertable columns
+
+		/* This will be moved to dbHandler
 		csv := strings.Split(c.FormValue("csv"), ",")
 		if len(csv) != 5 {
 			panic("Error")
@@ -85,11 +91,8 @@ func CSVLoad_POST(db *gorm.DB) echo.HandlerFunc {
 		}
 
 		db.Create(&user)
-
-		// List of Tables in Database
-		tables := []string {
-			"users",
-		}
+		
+		*/
 
 		return c.Render(http.StatusOK, "csvload.html", map[string]interface{}{
 			"title": "CSV Loader",
