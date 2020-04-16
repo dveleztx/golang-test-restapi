@@ -31,11 +31,6 @@ func main() {
 		AllowMethods:     []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
 	}))
 
-	// Handler
-	e.GET("/", handler.Welcome())
-	e.GET("/users", handler.GetAllUsers(db))
-	e.GET("/users/:name", handler.GetUser(db))
-
 	// Template
 	templates := tempengine.GetTemplates()
 	t := &tempengine.TemplateRegistry {
@@ -43,29 +38,28 @@ func main() {
 	}
 	e.Renderer = t
 
-	// Render Template HTMLs
+	/* Handlers */
+	// Home
+	e.GET("/", handler.Welcome())
+
+	// Users
+	e.GET("/users", handler.GetAllUsers(db))
+	e.GET("/users/name/:name", handler.GetUser(db))
+
+	/* Render API FrontEnd */
+	// GET Requests
 	e.GET("/index.html", handler.Index())
 	e.GET("/jsonload.html", handler.JSONLoad_GET(db))
 	e.GET("/csvload.html", handler.CSVLoad_GET(db))
 
+	// POST Requests
 	//e.POST("/jsonload.html", handler.JSONLoad_POST(db))
 	e.POST("/csvload.html", handler.CSVLoad_POST(db))
 
 	// Static
 	e.Static("/static", "assets")
 
-	// Create user test
-	/*
-	var user = model.User {
-		ID: 6,
-		Name: "Cody",
-		Age: "43",
-		CreatedAt: "2018-09-18",
-		UpdatedAt: "2011-07-17",
-	}
-	handler.CreateUser(db, user)
-	*/
-
+	/* Start Web Microservice */
 	e.Logger.Fatal(e.Start(":1324"))
 }
 

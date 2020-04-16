@@ -1,13 +1,15 @@
 package handler
 
 import (
-	"error"
 	"fmt"
+	"github.com/jinzhu/gorm"
+	"strings"
 	"testrest/model"
 )
 
 //func TableHandler(fields ...interface{}) model.User {
-func TableHandler(table, data) model.User {
+//func TableHandler(table, data) model.User {
+func TableHandler(db *gorm.DB, table string, data []string) {
 
 	// Debugging
 	fmt.Println(table)
@@ -15,19 +17,28 @@ func TableHandler(table, data) model.User {
 	/* Handler Logic */
 	if table == "users" {
 
-		fields := strings.Split(c.FormValue(data), ",")
-		fmt.Println(fields)
-
-                if len(csv) != 2 {
-                        panic(err)
-                }
-
-                user := model.User{
-                        Name: csv[0],
-                        Age: csv[1],
-                }
-
+		for index, line := range data {
+			if strings.Count(line, ",") != 1 {
+				fmt.Printf("\n*******************************\n" +
+				"Not correct amount of entries!\nLine: %v\nEntry: %v\n" +
+				"*******************************\n", index, line)
+			} else {
+				field := strings.Split(line, ",")
+				user := model.User {
+					Name: field[0],
+					Age: field[1],
+				}
+				createEntry(db, user)
+			}
+		}
 	}
+}
 
-	return User
+func createEntry (db *gorm.DB, dbObject model.User) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&dbObject).Error; err != nil {
+			return err
+		}
+		return nil
+	})
 }

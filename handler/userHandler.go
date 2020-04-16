@@ -5,15 +5,8 @@ import (
 	"github.com/labstack/echo"
 	"net/http"
 	"strings"
-	"strconv"
 	"testrest/model"
 )
-
-func Welcome() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		return c.String(http.StatusOK, "Welcome to Wigel Mapping API!")
-	}
-}
 
 func Index() echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -24,6 +17,10 @@ func Index() echo.HandlerFunc {
 	}
 }
 
+/******************************************************************************
+ * jsonload.html
+ *****************************************************************************/
+// GET
 func JSONLoad_GET(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
@@ -42,7 +39,6 @@ func JSONLoad_GET(db *gorm.DB) echo.HandlerFunc {
 /******************************************************************************
  * csvload.html
  *****************************************************************************/
-
 // GET
 func CSVLoad_GET(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -55,7 +51,7 @@ func CSVLoad_GET(db *gorm.DB) echo.HandlerFunc {
 		return c.Render(http.StatusOK, "csvload.html", map[string]interface{}{
 			"title": "CSV Loader",
 			"bodyheader": "CSV Loader",
-			"database": tables,
+			"table": tables,
 		})
 	}
 }
@@ -64,40 +60,30 @@ func CSVLoad_GET(db *gorm.DB) echo.HandlerFunc {
 func CSVLoad_POST(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
+		// Setup Dropdown
 		var tables []string
 		if err := db.Table("information_schema.tables").Where("table_schema = ?", "public").Pluck("table_name", &tables).Error; err != nil {
 			panic(err)
 		}
 
-		handler.TableHandler(tables, c.FormValue("csv"))
+		// Retrieve Values
+		var entries []string
+		table := c.FormValue("table")
+		fields := strings.Split(c.FormValue("csv"), "\n")
+		for _, field := range fields {
+			entries = append(entries, field)
+		}
+
+		// Database Handler
+		TableHandler(db, table, entries)
 
 		// TODO: Create transaction using dbHandler.go
 		// TODO: Create Table Struct with table name, fields, and number of insertable columns
 
-		/* This will be moved to dbHandler
-		csv := strings.Split(c.FormValue("csv"), ",")
-		if len(csv) != 5 {
-			panic("Error")
-		}
-
-		id, _ := strconv.ParseUint(csv[0], 10, 64)
-
-		user := model.User{
-			ID: id,
-			Name: csv[1],
-			Age: csv[2],
-			CreatedAt: csv[3],
-			UpdatedAt: csv[4],
-		}
-
-		db.Create(&user)
-		
-		*/
-
 		return c.Render(http.StatusOK, "csvload.html", map[string]interface{}{
 			"title": "CSV Loader",
 			"bodyheader": "CSV Loader",
-			"database": tables,
+			"table": tables,
 		})
 	}
 }

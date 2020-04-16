@@ -8,15 +8,14 @@
 
 {{define "body"}}
 
-<label for="databases">Choose a database:</label>
-<select id="databases">
-{{range $database := index . "database"}}
-	<option value="{{$database}}">{{$database}}</option>
-{{end}}
-</select>
-
+<label for="tables">Choose a table:</label>
 <div>
   <form action="" method="POST">
+    <select name="table" style="margin-bottom:10px;">
+    {{range $tables := .table}}
+      <option value="{{$tables}}">{{$tables}}</option>
+    {{end}}
+    </select>
     <textarea name="csv" rows="10" placeholder=" Enter CSV here" class="form-control" value="{{.csv}}"></textarea>
     <button type="submit" class="btn btn-primary" style="float: right; margin-top: 10px;">Submit</button>
     <div style="clear: both;"></div>
