@@ -1,0 +1,51 @@
+{{define "title"}}
+  Golang REST API | {{index . "title"}}
+{{end}}
+
+{{define "bodyheader"}}
+  {{index . "bodyheader"}}
+{{end}}
+
+{{define "body"}}
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Created At</th>
+            <th>Modified At</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Created At</th>
+            <th>Modified At</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          {{range .users }}
+          <tr>
+            <td>{{ .ID }}</td>
+	    <td>{{ .Name }}</td>
+	    <td>{{ .Age }}</td>
+	    <td>{{ .CreatedAt }}</td>
+	    <td>{{ .ModifiedAt }}</td>
+          </tr>
+	  {{end}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{{end}}

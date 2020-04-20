@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
 	"log"
 	"testrest/datastore"
 	"testrest/handler"
 	"testrest/tempengine"
+
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 func main() {
@@ -49,6 +50,7 @@ func main() {
 	/* Render API FrontEnd */
 	// GET Requests
 	e.GET("/index.html", handler.Index())
+	e.GET("/tables", handler.UsersTable_GET(db))
 	e.GET("/jsonload.html", handler.JSONLoad_GET(db))
 	e.GET("/csvload.html", handler.CSVLoad_GET(db))
 

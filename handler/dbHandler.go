@@ -2,9 +2,10 @@ package handler
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"strings"
 	"testrest/model"
+
+	"github.com/jinzhu/gorm"
 )
 
 //func TableHandler(fields ...interface{}) model.User {

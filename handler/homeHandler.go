@@ -1,8 +1,9 @@
 package handler
 
 import (
-	"github.com/labstack/echo"
 	"net/http"
+
+	"github.com/labstack/echo"
 )
 
 func Welcome() echo.HandlerFunc {

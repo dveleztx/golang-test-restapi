@@ -27,8 +27,9 @@ func GetPages() []string {
 
 	Pages := []string{
 		"index.html",
-		"jsonload.html",
 		"csvload.html",
+		"jsonload.html",
+		"users_table.html",
 	}
 
 	return Pages
@@ -48,6 +49,6 @@ func GetTemplates() map[string]*template.Template {
 	templates["csvload.html"] = template.Must(template.ParseFiles("public/views/csvload.html", baseTemplate))*/
 
 	fmt.Println(templates)
-	
+
 	return templates
 }

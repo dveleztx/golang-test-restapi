@@ -1,11 +1,12 @@
 package handler
 
 import (
-	"github.com/jinzhu/gorm"
-	"github.com/labstack/echo"
 	"net/http"
 	"strings"
 	"testrest/model"
+
+	"github.com/jinzhu/gorm"
+	"github.com/labstack/echo"
 )
 
 func Index() echo.HandlerFunc {
@@ -13,6 +14,28 @@ func Index() echo.HandlerFunc {
 		return c.Render(http.StatusOK, "index.html", map[string]interface{} {
 			"title": "Home",
 			"bodyheader": "Dashboard",
+		})
+	}
+}
+/******************************************************************************
+ * users_table.html
+ *****************************************************************************/
+// GET
+func UsersTable_GET(db *gorm.DB) echo.HandlerFunc {
+	return func(c echo.Context) error {
+
+		// Setting to singular, otherwise will search "users_by_ids"
+		db.SingularTable(true)
+
+		var users []*model.UsersByID
+                if err := db.Find(&users).Error; err != nil {
+                        return err
+                }
+
+		return c.Render(http.StatusOK, "users_table.html", map[string]interface{}{
+			"title": "Users Table",
+			"bodyheader": "Users Table",
+			"users": users,
 		})
 	}
 }
@@ -25,7 +48,7 @@ func JSONLoad_GET(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
 		var tables []string
-		if err := db.Table("information_schema.tables").Where("table_schema = ?", "public").Pluck("table_name", &tables).Error; err != nil {
+		if err := db.Table("information_schema.tables").Where("table_type = ? AND table_schema = ?", "BASE TABLE", "public").Pluck("table_name", &tables).Error; err != nil {
 			panic(err)
 		}
 
@@ -44,7 +67,7 @@ func CSVLoad_GET(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
 		var tables []string
-		if err := db.Table("information_schema.tables").Where("table_schema = ?", "public").Pluck("table_name", &tables).Error; err != nil {
+		if err := db.Table("information_schema.tables").Where("table_type = ? AND table_schema = ?", "BASE TABLE", "public").Pluck("table_name", &tables).Error; err != nil {
 			panic(err)
 		}
 
@@ -62,7 +85,7 @@ func CSVLoad_POST(db *gorm.DB) echo.HandlerFunc {
 
 		// Setup Dropdown
 		var tables []string
-		if err := db.Table("information_schema.tables").Where("table_schema = ?", "public").Pluck("table_name", &tables).Error; err != nil {
+		if err := db.Table("information_schema.tables").Where("table_type = ? AND table_schema = ?", "BASE TABLE", "public").Pluck("table_name", &tables).Error; err != nil {
 			panic(err)
 		}
 
@@ -77,7 +100,6 @@ func CSVLoad_POST(db *gorm.DB) echo.HandlerFunc {
 		// Database Handler
 		TableHandler(db, table, entries)
 
-		// TODO: Create transaction using dbHandler.go
 		// TODO: Create Table Struct with table name, fields, and number of insertable columns
 
 		return c.Render(http.StatusOK, "csvload.html", map[string]interface{}{
@@ -86,15 +108,6 @@ func CSVLoad_POST(db *gorm.DB) echo.HandlerFunc {
 			"table": tables,
 		})
 	}
-}
-
-func CreateUser(db *gorm.DB, user model.User) error {
-	return db.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(&user).Error; err != nil {
-			return err
-		}
-		return nil
-	})
 }
 
 func GetAllUsers(db *gorm.DB) echo.HandlerFunc {
